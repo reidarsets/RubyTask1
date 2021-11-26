@@ -1,7 +1,7 @@
 require "bundler/setup"
 require "hanami/api"
-require_relative 'controllers/Home'
-require_relative 'controllers/Upload'
+require_relative 'controllers/home'
+require_relative 'controllers/upload'
 
 class MyApp < Hanami::API
   get "/", to: Home.new

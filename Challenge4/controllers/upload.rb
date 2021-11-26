@@ -1,13 +1,13 @@
 require 'csv'
 require 'pg'
 require 'erb'
-require './create_db'
+require './DB/connect_db'
 
 class Upload
     def call(env)
         request = Rack::Request.new(env)
         if request.get?
-            [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/Upload.html')).result(binding)]]
+            [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/upload.erb')).result(binding)]]
         else
             file = File.read(request.params['file'][:tempfile])
             parsed = CSV.parse(file, headers: true)
@@ -46,7 +46,7 @@ class Upload
                     [row["Marketing material"], row["Marketing material type"], row["Marketing material cost"], 
                     row["Fixture"], row["Room"], row["Zone"], row["Office"]])
             }
-            [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/Home.html')).result(binding)]]
+            [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/home.erb')).result(binding)]]
         end
     end
 end

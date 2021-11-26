@@ -10,7 +10,7 @@ class OfficeInstallationReport
             office_id = env['router.params'][:id]
             @office = CONN.exec("SELECT * FROM offices WHERE id='#{office_id}'").first
             if !@office
-                return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/Home.erb')).result(binding)]]
+                return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/home.erb')).result(binding)]]
             end
 
             zones = CONN.exec_params("SELECT DISTINCT type FROM zones WHERE office_id = $1;", [office_id])
@@ -32,8 +32,8 @@ class OfficeInstallationReport
                 end
             end
         else
-            return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/Home.erb')).result(binding)]]
+            return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/home.erb')).result(binding)]]
         end
-        return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/OfficeInstallationReport.erb')).result(binding)]]
+        return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/office_installation_report.erb')).result(binding)]]
     end
 end

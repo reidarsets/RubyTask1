@@ -36,6 +36,6 @@ class FixtureReport
             @total[type["type"]] = @result[type["type"]].length
             @result[type["type"]].uniq!
         end
-        return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/FixtureReport.erb')).result(binding)]]
+        return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/fixture_report.erb')).result(binding)]]
     end
 end

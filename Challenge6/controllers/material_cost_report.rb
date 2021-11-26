@@ -22,6 +22,6 @@ def call(env)
       @material_summ[office['title']] = total_material.values.reduce(:+)
       @result[office['title']] = total_material
     end
-    return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/MaterialCostReport.erb')).result(binding)]]
+    return [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/material_cost_report.erb')).result(binding)]]
   end
 end
