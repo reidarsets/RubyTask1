@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixture Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style type="text/css">
+        table {
+            width: 100%;
+        }
+        .first {
+            width: 19%;
+        }
+        .second {
+            width: 8%;
+        }    
+        .third {
+            width: 40%;
+        }
+        .fourt { 
+            width: 10%;
+        }
+        .fifth {
+            width: 10%;
+        }
+        td {
+            box-sizing: border-box;
+            padding-right: 50px;
+        }
+        .box {
+            display:flex;
+            justify-content:center;
+            margin: 1em;
+        }
+
+        .logo, .Name {
+            margin-right:auto;
+        }
+   </style>
+</head>
+<body class="m-4">
+    <div class="box">
+        <h3 class="logo">Logo</h3>
+        <h2 class="Name">Fixture Type Count Report</h2>
+    </div>
+    <%@result.each do |type, office| %>
+        <h2 style="float: right;"><%= @total[type] %></h2>
+        <h2 class="p-2 border-bottom border-dark"><%= type.sub('_', ' ') %></h2>
+        <table>
+            <tr class="center-block">
+                <td class="first">Office</td>
+                <td class="second">Type</td>
+                <td class="third">Address</td>
+                <td class="fourt">LOB</td>
+                <td class="fourt">Sub Total Count</td>
+            </tr>
+        <%office.each do |data| %>
+            <tr>
+                <td><%= data["title"] %></td>
+                <td><%= data["type"] %></td>
+                <td><%= data["address"] %></td>
+                <td><%= data["lob"] %></td>
+                <td><%= @count[type][data] %></td>
+            </tr>
+        <% end %>
+        </table>
+    <% end %>
+</body>
+</html>

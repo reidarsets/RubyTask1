@@ -1,0 +1,6 @@
+source "http://rubygems.org"
+
+gem "pg"
+gem "rack"
+gem "hanami-api"
+gem "puma"

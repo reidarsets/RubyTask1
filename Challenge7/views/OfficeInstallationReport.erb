@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Installation Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style type="text/css">
+    table {
+        width: 100%;
+    }
+    td {
+        width: 25%;
+    }
+    </style>
+</head>
+<body class="m-4">
+    <h2>Logo</h2>
+    <div class="">
+        <h2 class="text-center"><%= @office['title'] %></h2>
+        <p class="text-center"><%= @office['state'] %>, <%= @office['address'] %>, <%= @office['phone'] %>, <%= @office['type'] %></p>
+        <p class="text-center">Total Area: <%= @area %></p>
+        <p class="text-center">Total max people count: <%= @people%></p>
+    </div>
+
+    <h2 class="text-center">Installation Instructions</h2>
+    <%@result.each do |zone, rooms| %>
+        <h2 class="border-5 border-bottom border-dark"><%= zone %></h2>
+        <%rooms.each do |room, materials| %>
+            <h2 class="ml-4 border-bottom border-dark"><%= room %></h2>
+            <table class="ml-5">
+                <tr class="center-block">
+                    <td>Marketing Material</td>
+                    <td>Marketing Material Type</td>
+                    <td>Fixture</td>
+                    <td>Fixture Type</td>
+                </tr>
+                <%materials.each do |material| %>
+                    <tr>
+                        <td><%= material["mat_type"] %></td>
+                        <td><%= material["mat_type"] %></td>
+                        <td><%= material["fix_name"] %></td>
+                        <td><%= material["fix_type"]%></td>
+                    </tr>
+                <% end %>
+            </table>
+        <% end %>
+    <% end %>
+</body>
+</html>
