@@ -7,50 +7,55 @@
     <title>State Report</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style type="text/css">
-        table {
-            width: 100%;
-        }
-        .first {
-            width: 25%;
-        }
-        .second {
-            width: 10%;
-        }    
-        .third {
-            width: 40%;
-        }
-        .fourt { 
-            width: 20%;
-        }
-        td {
-            box-sizing: border-box;
-            padding-right: 50px;
-        }
+    table {
+        width: 100%;
+    }
+    .first {
+        width: 25%;
+    }
+    .second {
+        width: 10%;
+    }    
+    .third {
+        width: 40%;
+    }
+    .fourt { 
+        width: 20%;
+    }
+    td {
+        box-sizing: border-box;
+        padding-right: 50px;
+    }
    </style>
+
 </head>
 <body class="m-4"> 
-    <div>
-        <h2>Logo</h2>
+    <div class="">
+        <h2 class="">Logo</h2>
         <h1 class="text-center">States Report</h1>
     </div>
-    <%@result.each_with_index do |office, index| %>
-    <h2 class="p-2 border-bottom border-dark"><%= office[index]["state"] %></h2>
-    <table>
-        <tr class="center-block">
-            <td class="first">Office</td>
-            <td class="second">Type</td>
-            <td class="third">Address</td>
-            <td class="fourt">LOB</td>
-        </tr>
-    <%office.each do |data| %>
-        <tr class="center-block">
-            <td class="first"><%= data["title"] %></td>
-            <td class="second"><%= data["type"] %></td>
-            <td class="third"><%= data["address"] %></td>
-            <td class="fourt"><%= data["lob"] %></td>
-       </tr>
-    <% end %>
-    </table>
+    <%state = nil
+    @offices.each do |office|
+        if office["state"] != state
+            state = office["state"]%>
+            <h2 class="p-2 border-bottom border-dark"><%= state %></h2>
+            <table>
+                <tr class="center-block">
+                    <td class="first">Office</td>
+                    <td class="second">Type</td>
+                    <td class="third">Address</td>
+                    <td class="fourt">LOB</td>
+                </tr>
+            </table>
+        <%end%>
+        <table>
+            <tr class="center-block">
+                <td class="first"><%= office["title"] %></td>
+                <td class="second"><%= office["type"] %></td>
+                <td class="third"><%= office["address"] %></td>
+                <td class="fourt"><%= office["lob"] %></td>
+            </tr>
+        </table>
     <% end %>
 </body>
 </html>

@@ -1,22 +1,14 @@
-require 'csv'
 require 'pg'
 require 'erb'
 require './DB/connect_db'
 
 class StatesReport
     def call(env)
-        @result = []
+        @offices = []
         if env['router.params'][:id]
-            @result = CONN.exec("SELECT * FROM offices WHERE state='#{env['router.params'][:id].upcase}'")
-            if @result.first
-                @result = [@result]
-            else
-                return [404, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/home.erb')).result(binding)]]
-            end
+            @offices = CONN.exec("SELECT * FROM offices WHERE state='#{env['router.params'][:id].upcase}'")
         else
-            CONN.exec('SELECT DISTINCT state FROM offices;').each do |state|
-                @result << CONN.exec("SELECT * FROM offices WHERE state='#{state['state']}'")
-            end
+            @offices = CONN.exec("SELECT * FROM offices ORDER BY state;")
         end
         [200, { 'Content-Type' => 'text/html' }, [ERB.new(File.read('views/states_report.erb')).result(binding)]]
     end

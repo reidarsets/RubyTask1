@@ -18,7 +18,8 @@ CONN.exec(
   'CREATE TABLE IF NOT EXISTS "zones" (
     "id" SERIAL PRIMARY KEY,
     "type" varchar NOT NULL,
-    "office_id" int NOT NULL REFERENCES "offices" ("id")
+    "office_id" int NOT NULL REFERENCES "offices" ("id"),
+    UNIQUE(type, office_id)
   );'
 )
 
@@ -28,7 +29,8 @@ CONN.exec(
     "name" varchar NOT NULL,
     "area" int NOT NULL,
     "max_people" int NOT NULL,
-    "zone_id" int NOT NULL REFERENCES "zones" ("id")
+    "zone_id" int NOT NULL REFERENCES "zones" ("id"),
+    UNIQUE(name, zone_id)
   );'
 )
 
@@ -47,6 +49,7 @@ CONN.exec(
     "name" varchar,
     "type" varchar,
     "cost" int,
-    "fixture_id" int NOT NULL REFERENCES "fixtures" ("id")
+    "fixture_id" int NOT NULL REFERENCES "fixtures" ("id"),
+    UNIQUE(name, fixture_id)
   );'
 )
