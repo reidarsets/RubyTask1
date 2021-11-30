@@ -7,10 +7,13 @@ def call(env)
     @result = {}
     @material_summ = {}
     CONN.exec('SELECT DISTINCT * FROM offices;').each do |office|
-      @result[office['title']] = CONN.exec_params('SELECT materials.type, materials.cost FROM materials WHERE fixture_id IN 
-        (SELECT id FROM fixtures WHERE room_id IN 
-        (SELECT id FROM rooms WHERE zone_id IN 
-        (SELECT DISTINCT id FROM zones WHERE office_id = $1)));', [office['id']])
+      @result[office['title']] = CONN.exec_params('SELECT materials.type, materials.cost 
+          FROM materials 
+          INNER JOIN fixtures ON materials.fixture_id = fixtures.id
+          INNER JOIN rooms ON fixtures.room_id = rooms.id
+          INNER JOIN zones ON rooms.zone_id = zones.id
+          INNER JOIN offices ON zones.office_id = offices.id
+          WHERE offices.id = $1;', [office['id']])
       total_material = {}
       @result[office['title']].each do |materials|
         if total_material[materials['type']]
